@@ -18,10 +18,11 @@ ultima-revisao: 2026-07-10
 
 # Status do ciclo de vida
 # ADR 2026-06-28-habilidade-canonica-gate-consumidor-real (aplica a SDKs tb)
-status: alpha
-consumidores-migrados: []
+status: beta   # gate consumidor-real cumprido no dia da publicação (2026-07-10/11)
+consumidores-migrados: [agente-comercio-revendas]
 notas-de-migracao:
-  - "2026-07-10: extração inicial do se_client.py do agente-comercio-revendas (feature Endossos, VALIDADA EM PRODUÇÃO no mesmo dia: processo CRE-001 real com form + campo arquivo termoanuencia + anexos ATV-01). Consolida padrões copiados em 4+ agentes (nf, cpr, comite-credito, km). Pendente migração do agente-comercio-revendas (trocar se_client.py local pelo SDK) pra cumprir gate beta."
+  - "2026-07-10: extração inicial do se_client.py do agente-comercio-revendas (feature Endossos, VALIDADA EM PRODUÇÃO no mesmo dia: processo CRE-001 real com form + campo arquivo termoanuencia + anexos ATV-01). Consolida padrões copiados em 4+ agentes (nf, cpr, comite-credito, km)."
+  - "2026-07-11: 1º CONSUMIDOR MIGRADO — agente-comercio-revendas (se_client.py virou adapter fino, commit f1dee9b; deploy Railway builda o SDK via pip git+tag). Gate beta cumprido. Próximo: 2º consumidor (agente-nf ou agente-cpr) → producao."
 
 # Matriz 3D (Maná Builder)
 cadeia: transversal
