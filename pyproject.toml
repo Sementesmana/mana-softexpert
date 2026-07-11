@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mana-softexpert"
+version = "0.1.0"
+description = "SDK Camada 2A (Mana Builder) - escrita no SoftExpert Workflow via wf_ws: newWorkflow, editEntityRecord (texto + campo arquivo), newAttachment, cancelWorkflow, com sessao SOAP persistente"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["requests>=2.31"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

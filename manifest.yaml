@@ -1,0 +1,57 @@
+# Manifesto do SDK — Maná Builder
+# Ver: ADR 2026-06-26-mana-builder-matriz-cobertura (vault)
+# Arquitetura: SDK (`mana-X`, Camada 2A) ≠ Habilidade (`mana-habilidade-X`, Camada 2C)
+
+# Identidade
+nome: mana-softexpert
+descricao: SDK de ESCRITA no SoftExpert Workflow via wf_ws — newWorkflow, editEntityRecord (texto + campo tipo arquivo via EntityAttributeFileList), newAttachment em atividade, cancelWorkflow. Sessão SOAP persistente (N chamadas sem re-negociar TLS), erros FAILURE viram SoftExpertError com code/detail, zero credencial no código. Par de escrita da leitura se-dataset-reader.
+categoria: sdk
+camada: 2A
+
+# Ownership
+owner: xayer-mana
+codeowners: [xayer-mana]
+
+# Versão
+versao-atual: 0.1.0
+ultima-revisao: 2026-07-10
+
+# Status do ciclo de vida
+# ADR 2026-06-28-habilidade-canonica-gate-consumidor-real (aplica a SDKs tb)
+status: alpha
+consumidores-migrados: []
+notas-de-migracao:
+  - "2026-07-10: extração inicial do se_client.py do agente-comercio-revendas (feature Endossos, VALIDADA EM PRODUÇÃO no mesmo dia: processo CRE-001 real com form + campo arquivo termoanuencia + anexos ATV-01). Consolida padrões copiados em 4+ agentes (nf, cpr, comite-credito, km). Pendente migração do agente-comercio-revendas (trocar se_client.py local pelo SDK) pra cumprir gate beta."
+
+# Matriz 3D (Maná Builder)
+cadeia: transversal
+sub-categoria-emergente: conectores-se
+hierarquia: []
+tipo_artefato: sdk
+
+# Relações
+substitui-copias-em:
+  - agente-comercio-revendas   # se_client.py (origem da extração)
+  - agente-nf                   # SOAP inline (atualizar_campos_workflow, anexar_pdf_se)
+  - agente-cpr                  # SOAP inline
+  - agente-comite-credito       # app/integrations/softexpert.py (parcial — escrita)
+  - agente-km                   # editEntityRecord inline
+consumidores: []
+consumidores-planejados: [agente-comercio-revendas, agente-nf, agente-cpr, agente-documentos, agente-km, agente-pmo-futuro]
+depende-de: []
+skill-irma: softexpert-wf-ws   # a skill de CONHECIMENTO (23 métodos documentados); este SDK é o código
+par-de-leitura: mana-habilidade-se-dataset-reader
+
+# Dependências
+deps-hard: [requests>=2.31]
+deps-opcionais: []
+binarios-sistema: []
+
+# Distribuição (ADR 2026-06-26-distribuicao-via-git-tag)
+registry: git-tag
+url-instalacao: "git+https://github.com/Sementesmana/mana-softexpert.git@v0.1.0"
+
+# LGPD / Segurança
+toca-pii: true   # transporta dados de formulário e documentos (binário) direto pro SE; NUNCA passa por LLM. Credenciais só via env do consumidor.
+data-criacao: 2026-07-10
+tags: [sdk, mana-builder, softexpert, wf_ws, soap, escrita, workflow, formulario, campo-arquivo, anexo, atividade, cancelamento, sessao-persistente, transversal]
